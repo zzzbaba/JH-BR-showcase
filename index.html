@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>江汉BR — 64 个区块，一个出口</title>
+<meta name="description" content="复刻《大逃杀》设定的网页多人生存游戏，舞台搬到了江汉油田。">
+<style>
+  :root{
+    --bg:#0a0908;
+    --panel:#12100f;
+    --line:rgba(200,69,58,.22);
+    --line-strong:rgba(200,69,58,.5);
+    --red:#c8453a;
+    --red-dim:#8e3229;
+    --text:#d8d2cd;
+    --text-dim:#8a827d;
+    --mono:"SF Mono","Cascadia Mono",Consolas,"Liberation Mono",Menlo,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--mono);
+    font-size:15px;
+    line-height:1.75;
+    -webkit-font-smoothing:antialiased;
+    background-image:
+      radial-gradient(circle at 50% -10%, rgba(200,69,58,.10), transparent 55%),
+      radial-gradient(circle at 50% 120%, rgba(200,69,58,.06), transparent 60%);
+    background-attachment:fixed;
+  }
+  .wrap{max-width:960px;margin:0 auto;padding:0 20px}
+
+  /* ---------- 头部 ---------- */
+  header{padding:72px 0 40px;text-align:center}
+  h1{
+    font-size:clamp(38px,9vw,68px);
+    letter-spacing:.14em;
+    font-weight:700;
+    color:#f0e9e4;
+    text-shadow:0 0 24px rgba(200,69,58,.45), 0 0 60px rgba(200,69,58,.18);
+  }
+  .tagline{
+    margin-top:14px;
+    font-size:clamp(14px,3.4vw,18px);
+    color:var(--red);
+    letter-spacing:.22em;
+  }
+  .sub{
+    margin-top:18px;
+    color:var(--text-dim);
+    font-size:13px;
+    letter-spacing:.06em;
+  }
+  .rule{
+    margin:34px auto 0;width:64px;height:1px;
+    background:linear-gradient(90deg,transparent,var(--red),transparent);
+  }
+
+  /* ---------- 图 ---------- */
+  figure{margin:0}
+  .hero{margin:44px 0 10px}
+  .shot{
+    display:block;width:100%;height:auto;
+    border:1px solid var(--line);
+    border-radius:3px;
+    box-shadow:0 0 0 1px rgba(0,0,0,.6), 0 18px 50px rgba(0,0,0,.65);
+  }
+  figcaption{
+    margin-top:14px;text-align:center;
+    font-size:12px;color:var(--text-dim);letter-spacing:.05em;
+  }
+
+  /* ---------- 章节 ---------- */
+  section{padding:52px 0;border-top:1px solid var(--line)}
+  section:first-of-type{border-top:0}
+  h2{
+    font-size:13px;font-weight:400;
+    letter-spacing:.3em;color:var(--red);
+    margin-bottom:22px;
+  }
+  h2::before{content:"// ";color:var(--red-dim)}
+  p{color:var(--text);margin-bottom:14px}
+  p.dim{color:var(--text-dim);font-size:13.5px}
+
+  /* ---------- 三张卡 ---------- */
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:26px}
+  .card{
+    border:1px solid var(--line);
+    background:linear-gradient(180deg,rgba(200,69,58,.05),transparent);
+    padding:20px 18px;border-radius:3px;
+    transition:border-color .2s, transform .2s;
+  }
+  .card:hover{border-color:var(--line-strong);transform:translateY(-2px)}
+  .card .num{font-size:11px;color:var(--red-dim);letter-spacing:.2em}
+  .card h3{font-size:16px;font-weight:600;margin:10px 0 8px;color:#efe7e2}
+  .card p{font-size:12.5px;color:var(--text-dim);margin:0 0 14px}
+  .card .stars{font-size:12px;color:var(--red);letter-spacing:.15em}
+
+  /* ---------- 双图 ---------- */
+  .duo{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .duo figcaption{text-align:center}
+
+  /* ---------- 数字 ---------- */
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
+  .stat{background:var(--bg);padding:22px 12px;text-align:center}
+  .stat b{display:block;font-size:clamp(22px,5vw,30px);color:var(--red);font-weight:600;line-height:1.2}
+  .stat span{display:block;margin-top:6px;font-size:11.5px;color:var(--text-dim);letter-spacing:.12em}
+
+  /* ---------- 引用 ---------- */
+  blockquote{
+    border-left:2px solid var(--red-dim);
+    padding:4px 0 4px 18px;margin:22px 0;
+    color:var(--text-dim);font-size:13.5px;
+  }
+
+  /* ---------- 页脚 ---------- */
+  footer{
+    padding:60px 0 70px;text-align:center;
+    border-top:1px solid var(--line);
+  }
+  footer .line{color:var(--text-dim);font-size:12px;letter-spacing:.1em}
+  footer .sig{margin-top:18px;color:var(--red-dim);font-size:11.5px;letter-spacing:.18em}
+
+  /* ---------- 响应式 ---------- */
+  @media (max-width:760px){
+    header{padding:52px 0 28px}
+    section{padding:40px 0}
+    .cards{grid-template-columns:1fr}
+    .duo{grid-template-columns:1fr}
+    .stats{grid-template-columns:repeat(2,1fr)}
+    body{font-size:14px}
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <header>
+    <h1>江汉BR</h1>
+    <p class="tagline">64 个区块，一个出口。</p>
+    <p class="sub">复刻《大逃杀》设定的网页多人生存游戏 · 舞台搬到了江汉油田</p>
+    <div class="rule"></div>
+  </header>
+
+  <figure class="hero">
+    <img class="shot" src="docs/img/main.png" alt="江汉BR 主界面">
+    <figcaption>左边是你的身体，中间是 64 个区块，右边是这个世界的声音</figcaption>
+  </figure>
+
+  <section>
+    <h2>这是什么</h2>
+    <blockquote>
+      广播念完你的编号，然后是一句「祝各位好运」。<br>
+      你被投放在十号地。包里有一把匕首、几卷绷带、一百块钱。
+    </blockquote>
+    <p>一场被广播出来的死亡游戏。你是第 37 号，被丢进 64 个区块里，只有一个人能走出去。</p>
+    <p class="dim">不是动作游戏，不用练枪法。你做的每一个决定都是选择题：往哪走、打不打、拿什么换什么。</p>
+  </section>
+
+  <section>
+    <h2>三条路，随便挑一条</h2>
+    <div class="cards">
+      <div class="card">
+        <span class="num">01</span>
+        <h3>熬死所有人</h3>
+        <p>活到最后，或者别人都死光。</p>
+        <span class="stars">★★★</span>
+      </div>
+      <div class="card">
+        <span class="num">02</span>
+        <h3>杀掉广播员</h3>
+        <p>第 30 分钟后，上广华寺钟楼。</p>
+        <span class="stars">★★★★</span>
+      </div>
+      <div class="card">
+        <span class="num">03</span>
+        <h3>带走七娃</h3>
+        <p>说服那个 8 岁男孩跟你走。</p>
+        <span class="stars">★</span>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>遇到人了</h2>
+    <figure>
+      <img class="shot" src="docs/img/battle.png" alt="战斗界面">
+      <figcaption>左边是你，右边是那个落单的学生</figcaption>
+    </figure>
+    <p style="margin-top:22px">回合制。攻击、使用道具、换武器、防御、逃跑。打不过可以「放我一马」，魅力够高他真的会走。</p>
+    <p class="dim">打赢了能捡尸体上的东西——这是拿到好枪的唯一途径，商人只卖基础物资。</p>
+    <blockquote>枪声会招人。冷兵器噪音 1~3，几乎无声；枪械 8~10，全场都听得见。拿枪打赢一场，往往意味着要连打三场，而你的血不会回。</blockquote>
+  </section>
+
+  <section>
+    <h2>背包里的每一样东西</h2>
+    <figure>
+      <img class="shot" src="docs/img/bag.png" alt="背包界面">
+      <figcaption>按类别着色，每个格子都是手绘的像素图标</figcaption>
+    </figure>
+    <p style="margin-top:22px">137 件物品：22 把武器、29 件防具、26 种药物、18 种材料、12 种弹药、5 种背包。</p>
+    <p class="dim">鼠标停在任何一件东西上都会弹出详细数值，并和你身上穿的做对比——绿色更好，红色更差。新手不用查表。</p>
+  </section>
+
+  <section>
+    <h2>把垃圾变成武器</h2>
+    <figure>
+      <img class="shot" src="docs/img/craft.png" alt="合成台">
+      <figcaption>每一行都告诉你：缺什么、成功率多少、材料够不够</figcaption>
+    </figure>
+    <p style="margin-top:22px">80 条配方，全是「小 → 大」的升级路线：绷带 → 止血带 → 急救包，匕首 → 棒球棍 → 铁锤 → 砍刀 → 长矛 → 消防斧 → … → 火箭筒。</p>
+    <p class="dim">材料只有 18 种，前中后期都有用，不会捡到一辈子用不上的垃圾。</p>
+  </section>
+
+  <section>
+    <h2>两个人</h2>
+    <div class="duo">
+      <figure>
+        <img class="shot" src="docs/img/sevenwa.png" alt="七娃">
+        <figcaption>七娃 · 20% 概率跟你走</figcaption>
+      </figure>
+      <figure>
+        <img class="shot" src="docs/img/liuying.png" alt="刘颖">
+        <figcaption>刘颖 · 红药丸，还是蓝药丸</figcaption>
+      </figure>
+    </div>
+    <blockquote style="margin-top:26px">
+      「七娃。」他说，「我妈说让我在这儿等她，她去买东西了。」<br>
+      他顿了一下：「她去了很久了。」
+    </blockquote>
+    <p class="dim">带走他，本轮立即结束，算你赢。失败他会换个地方，过一会儿还能再遇到。</p>
+    <p class="dim">刘颖会给你两颗药丸，红的动体魄，蓝的动心智，然后问你一道题。答对了多半是好事，答错了自己承担。</p>
+  </section>
+
+  <section>
+    <h2>一些数字</h2>
+    <div class="stats">
+      <div class="stat"><b>64</b><span>个区块</span></div>
+      <div class="stat"><b>137</b><span>件物品</span></div>
+      <div class="stat"><b>80</b><span>条配方</span></div>
+      <div class="stat"><b>53</b><span>个称号</span></div>
+      <div class="stat"><b>20</b><span>种敌人</span></div>
+      <div class="stat"><b>8</b><span>个常驻 NPC</span></div>
+      <div class="stat"><b>6</b><span>种天气</span></div>
+      <div class="stat"><b>30</b><span>分钟一局</span></div>
+    </div>
+    <p class="dim" style="margin-top:22px">还有空投补给、玩家交易、人质、地雷、宝箱、玩家对战——这些等你进去自己撞。</p>
+  </section>
+
+  <section>
+    <h2>现在</h2>
+    <p><strong style="color:var(--red)">开发中。</strong>核心玩法已经跑通，正在调平衡和补内容。</p>
+    <p class="dim">✅ 单局流程、战斗、合成、装备、天气、NPC、称号、排名<br>
+    🚧 剧情主线 · 公网部署</p>
+    <p class="dim" style="margin-top:18px">源码暂不公开，这个页面只放说明和截图。</p>
+  </section>
+
+  <footer>
+    <p class="line">如果你玩到了，欢迎告诉我哪里不合理——数值、节奏、哪个敌人太赖。</p>
+    <p class="sig">广播员还在钟楼上念编号。你是第 37 号。</p>
+  </footer>
+
+</div>
+
+</body>
+</html>
